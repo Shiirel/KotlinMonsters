@@ -1,4 +1,5 @@
-package org.example
+import dresseur.Entraineur
+
 
 /**
  * Change la couleur du message donné selon le nom de la couleur spécifié.
@@ -9,6 +10,8 @@ package org.example
  * @param couleur Le nom de la couleur à appliquer (ex: "rouge", "vert", "bleu"). Par défaut c'est une chaîne vide, ce qui n'applique aucune couleur.
  * @return Le message coloré sous forme de chaîne, ou le même message si aucune couleur n'est appliquée.
  */
+
+/*
 fun changeCouleur(message: String, couleur:String=""): String {
     val reset = "\u001B[0m"
     val codeCouleur = when (couleur.lowercase()) {
@@ -25,9 +28,24 @@ fun changeCouleur(message: String, couleur:String=""): String {
     return "$codeCouleur$message$reset"
 }
 
+
 fun main() {
     println(changeCouleur("Hello","rouge"))
     println(changeCouleur("World","bleu"))
     println("Hello ${changeCouleur("my","jaune")} World")
     println(changeCouleur("Truc","marron"))
+}*/
+
+
+
+
+var joueur = Entraineur(1, "Sacha", 100)
+var rival = Entraineur(2, "Regis", 200)
+
+fun main() {
+    joueur.afficheDetail()
+    rival.afficheDetail()
+    joueur.argents+=50
+    joueur.afficheDetail()
 }
+
