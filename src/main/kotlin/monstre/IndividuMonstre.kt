@@ -1,0 +1,89 @@
+package monstre
+import dresseur.Entraineur
+import kotlin.Int
+import kotlin.random.Random
+import kotlin.math.pow
+import kotlin.math.round
+
+class IndividuMonstre (
+    var id : Int,
+    var nom : String,
+    var espece : EspeceMonstre,
+    var entraineur : Entraineur? = null,
+    expInit : Double
+) {
+    var niveau: Int = 1
+    var attaque: Int = Random.nextInt(espece.baseAttaque - 2, espece.baseAttaque + 3)
+    var defense: Int = Random.nextInt(espece.baseDefense - 2, espece.baseDefense + 3)
+    var vitesse: Int = Random.nextInt(espece.baseVitesse - 2, espece.baseVitesse + 3)
+    var attaqueSpe: Int = Random.nextInt(espece.baseAttaqueSpe - 2, espece.baseAttaqueSpe + 3)
+    var defenseSpe: Int = Random.nextInt(espece.baseDefenseSpe - 2, espece.baseDefenseSpe + 3)
+    var pvMax: Int = Random.nextInt(espece.basePv - 5, espece.basePv + 6)
+    var potentiel: Double = Random.nextDouble(0.5, 3.0)
+    /**
+     *  @property exp expérience.
+     * Quand l'exp atteint un palier, la méthode levelUp() est appelée
+     */
+    var exp: Double = 0.0
+        set(value) {
+            field = value
+            var estNiveau1 = false
+            if (niveau == 1) {
+                estNiveau1 = true
+            }
+            if (field>=palierExp(niveau)) {
+                levelUp()
+                if (estNiveau1 == false) {
+                    println("Le monstre $nom est maintenant niveau $niveau")
+                }
+            }
+        }
+
+
+    /**
+     *  @property pv  Points de vie actuels.
+     * Ne peut pas être inférieur à 0 ni supérieur à [pvMax].
+     */
+    var pv: Int = pvMax
+        get() = field
+        set(nouveauPv) {
+            if (nouveauPv >= 0 && nouveauPv <= pvMax) {
+                field = nouveauPv
+            }
+        }
+
+    init {
+        this.exp = expInit // applique le setter et déclenche un éventuel level-up
+    }
+
+
+    /**
+     * Calcule l'expérience totale nécessaire pour atteindre un niveau donné.
+     *
+     * @param niveau Niveau cible.
+     * @return Expérience cumulée nécessaire pour atteindre ce niveau.
+     */
+    fun palierExp(niveau: Int) : Double {
+        return 100*(niveau-1).toDouble().pow(2.0)
+    }
+
+    /**
+     * Augmente le niveau d'un monstre et calcule les nouvelles valeurs de ses
+     * caractéristiques.
+     *
+     * @param modCaracteristique .
+     * @return le niveau augmenté.
+     */
+    fun levelUp() {
+        niveau += 1
+        attaque += round(espece.modAttaque * potentiel).toInt() + Random.nextInt(-2, 3)
+        defense += round(espece.modDefense * potentiel).toInt() + Random.nextInt(-2, 3)
+        vitesse += round(espece.modVitesse * potentiel).toInt() + Random.nextInt(-2, 3)
+        attaqueSpe += round(espece.modAttaqueSpe * potentiel).toInt() + Random.nextInt(-2, 3)
+        defenseSpe += round(espece.modDefenseSpe * potentiel).toInt() + Random.nextInt(-2, 3)
+
+        val ancienPvMax = pvMax
+        pvMax += round(pvMax*potentiel).toInt()+Random.nextInt(-5,6)
+        pv += pvMax - ancienPvMax
+    }
+}
