@@ -1,4 +1,5 @@
 import dresseur.Entraineur
+import item.Badge
 import monde.Zone
 import monstre.EspeceMonstre
 import monstre.IndividuMonstre
@@ -57,6 +58,7 @@ fun main() {
     val monstre2 = IndividuMonstre(2, "flamkip", especeFlamkip,null,1500.0)
     val monstre3 = IndividuMonstre(3, "aquamy", especeAquamy,null,1500.0)
 
+    val badge = Badge(1,"Badge Roche","Badge gagné lorsque le joueur atteint l'arène de pierre.")
 
 
     ////////TESTS////////
