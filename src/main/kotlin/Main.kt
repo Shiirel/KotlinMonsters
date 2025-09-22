@@ -53,8 +53,13 @@ fun main() {
     route1.zoneSuivante = route2
     route2.zonePrecedente = route1
 
-    val monstre1 = IndividuMonstre(1, "springleaf",especeSpringleaf,"",1500.0)
-    val monstre2 = IndividuMonstre(2, "flamkip", 1500.0, especeFlamkip)
-    val monstre3 = IndividuMonstre(3, "aquamy", 1500.0, especeAquamy)
+    val monstre1 = IndividuMonstre(1, "springleaf",especeSpringleaf,null,1500.0)
+    val monstre2 = IndividuMonstre(2, "flamkip", especeFlamkip,null,1500.0)
+    val monstre3 = IndividuMonstre(3, "aquamy", especeAquamy,null,1500.0)
+
+    monstre1.exp = 2000.0
+    monstre2.pv = 50
+    monstre2.pv = -5
+
 }
 

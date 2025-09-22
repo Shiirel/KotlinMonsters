@@ -25,19 +25,23 @@ class IndividuMonstre (
      * Quand l'exp atteint un palier, la méthode levelUp() est appelée
      */
     var exp: Double = 0.0
+        get() = field
         set(value) {
             field = value
             var estNiveau1 = false
             if (niveau == 1) {
                 estNiveau1 = true
             }
-            if (field>=palierExp(niveau)) {
+            do {
                 levelUp()
                 if (estNiveau1 == false) {
                     println("Le monstre $nom est maintenant niveau $niveau")
+                    break
+
                 }
-            }
+            } while (field >= palierExp(niveau))
         }
+
 
 
     /**
@@ -71,7 +75,6 @@ class IndividuMonstre (
      * Augmente le niveau d'un monstre et calcule les nouvelles valeurs de ses
      * caractéristiques.
      *
-     * @param modCaracteristique .
      * @return le niveau augmenté.
      */
     fun levelUp() {
@@ -85,5 +88,18 @@ class IndividuMonstre (
         val ancienPvMax = pvMax
         pvMax += round(pvMax*potentiel).toInt()+Random.nextInt(-5,6)
         pv += pvMax - ancienPvMax
+    }
+
+
+    /**
+     * Attaque un autre [IndividuMonstre] et inflige des dégâts.
+     *
+     * Les dégâts sont calculés de manière très simple pour le moment :
+     * `dégâts = attaque - (défense / 2)` (minimum 1 dégât).
+     *
+     * @param cible Monstre cible de l'attaque.
+     */
+    fun attaquer() {
+        
     }
 }
