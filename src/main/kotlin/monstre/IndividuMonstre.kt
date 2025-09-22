@@ -1,5 +1,6 @@
 package monstre
 import dresseur.Entraineur
+import monstre.EspeceMonstre
 import kotlin.Int
 import kotlin.random.Random
 import kotlin.math.pow
@@ -99,7 +100,53 @@ class IndividuMonstre (
      *
      * @param cible Monstre cible de l'attaque.
      */
-    fun attaquer() {
-        
+    fun attaquer(cible: IndividuMonstre) {
+        val degaBrut = this.attaque
+        var degatTotal = degaBrut - (this.defense/2)
+        if(degatTotal<1) {
+            degatTotal = 1
+        }
+        val pvAvant = cible.pv
+        cible.pv -= degatTotal
+
+        val pvApres = cible.pv
+        print("$nom inflige ${pvAvant-pvApres} dégâts à ${cible.nom}")
+    }
+
+    /**
+     * Demande au joueur de renommer le monstre.
+     * Si l'utilisateur entre un texte vide, le nom n'est pas modifié.
+     */
+    fun renommer() {
+        println("Renommer $nom ?")
+        print("Nouveau nom : ")
+        val nouveauNom = readln()
+        if (nouveauNom.isNotEmpty()) {
+            this.nom = nouveauNom
+        }
+    }
+
+
+    /**
+     * Affiche les caractéristiques du monstre et son art.
+     */
+    fun afficheDetail() {
+        val listeDetails = mutableMapOf<String,String>(
+            "Nom: " to this.nom,
+            "Niveau: " to this.niveau.toString(),
+            "Exp: " to this.exp.toString(),
+            "PV: " to this.pv.toString(),)
+        val listeDetails2 = mutableMapOf<String,String>(
+            "Atq: " to this.attaque.toString(),
+            "Def: " to this.defense.toString(),
+            "Vitesse: " to this.vitesse.toString(),
+            "AtqSpe: " to this.attaqueSpe.toString(),
+            "DefSpe: " to this.defenseSpe.toString())
+        print(this.espece.afficheArt())
+        println("=================================================")
+        println(listeDetails)
+        println("=================================================")
+        println(listeDetails2)
+        println("=================================================")
     }
 }

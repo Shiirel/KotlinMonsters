@@ -57,9 +57,20 @@ fun main() {
     val monstre2 = IndividuMonstre(2, "flamkip", especeFlamkip,null,1500.0)
     val monstre3 = IndividuMonstre(3, "aquamy", especeAquamy,null,1500.0)
 
+
+
+    ////////TESTS////////
+    /*
     monstre1.exp = 2000.0
     monstre2.pv = 50
     monstre2.pv = -5
+    monstre1.attaquer(monstre2)
+    monstre1.renommer()
+    print("Nom monstre1 : ${monstre1.nom}")
+    monstre1.afficheDetail()
+    */
+
+
 
 }
 
