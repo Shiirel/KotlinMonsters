@@ -1,11 +1,12 @@
 import dresseur.Entraineur
 import item.Badge
+import item.MonsterKube
 import monde.Zone
 import monstre.EspeceMonstre
 import monstre.IndividuMonstre
 
 //Déclarations d'objets et de variables
-var joueur = Entraineur(1, "Sacha", 100)
+public var joueur = Entraineur(1, "Sacha", 100)
 
 var especeSpringleaf = EspeceMonstre(1,"springleaf","graine",60,9,11,10,12,14,34.0,6.5,9.0,8.0,7.0,10.0,"Petit monstre espiègle rond comme une graine, adore le soleil.","Sa feuille sur la tête indique son humeur.","Curieux, amical, timide")
 var especeFlamkip = EspeceMonstre(4,"flamkip","animal",50,12,8,13,16,7,22.0,10.0,5.5,9.5,9.5,6.5,"Petit animal entouré de flammes, déteste le froid.","Sa flamme change d’intensité selon son énergie.","Impulsif, joueur, loyal")
@@ -17,6 +18,8 @@ var especeGalum = EspeceMonstre(13,"galum","minéral",55,12,15,6,8,12,13.0,9.0,1
 
 var route1 = Zone(1,"bramblewood",20,mutableListOf(especeSpringleaf,especeBugsyface))
 var route2 = Zone(2,"moonwood",45,mutableListOf(especeGalum))
+
+var objet1 = MonsterKube(1,"cube","description",280.0)
 
 //Fonctions et méthodes
 
@@ -61,6 +64,8 @@ fun main() {
     val badge = Badge(1,"Badge Roche","Badge gagné lorsque le joueur atteint l'arène de pierre.")
 
 
+
+
     ////////TESTS////////
     /*
     monstre1.exp = 2000.0
@@ -70,6 +75,7 @@ fun main() {
     monstre1.renommer()
     print("Nom monstre1 : ${monstre1.nom}")
     monstre1.afficheDetail()
+    objet1.utiliser(monstre1)
     */
 
 

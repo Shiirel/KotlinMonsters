@@ -1,5 +1,6 @@
 package item
 import monstre.IndividuMonstre
+
 /**
  * Interface définissant le comportement d'un objet ou d'une action
  * pouvant être utilisé(e) sur un [IndividuMonstre].
@@ -16,7 +17,6 @@ interface Utilisable {
      * @return `true` si l'action a eu un effet (ex. : capture réussie, soin appliqué),
      *         `false` sinon.
      */
-    fun utiliser(cible: IndividuMonstre): Boolean {
+    fun utiliser(cible: IndividuMonstre): Boolean
 
-    }
 }
