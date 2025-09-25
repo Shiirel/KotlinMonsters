@@ -57,6 +57,7 @@ class IndividuMonstre (
             }
         }
 
+
     init {
         this.exp = expInit // applique le setter et déclenche un éventuel level-up
     }

@@ -1,6 +1,7 @@
 import dresseur.Entraineur
 import item.Badge
 import item.MonsterKube
+import jeu.Partie
 import monde.Zone
 import monstre.EspeceMonstre
 import monstre.IndividuMonstre
@@ -20,6 +21,9 @@ var route1 = Zone(1,"bramblewood",20,mutableListOf(especeSpringleaf,especeBugsyf
 var route2 = Zone(2,"moonwood",45,mutableListOf(especeGalum))
 
 var objet1 = MonsterKube(1,"cube","description",280.0)
+val badge = Badge(1,"Badge Roche","Badge gagné lorsque le joueur atteint l'arène de pierre.")
+
+
 
 //Fonctions et méthodes
 
@@ -49,6 +53,14 @@ fun changeCouleur(message: String, couleur:String=""): String {
     return "$codeCouleur$message$reset"
 }
 
+fun nouvellePartie(): Partie {
+    println("Quel est ton nom ?")
+    val nomJoueur = readln()
+    val nouveauJoueur = Entraineur(1, nomJoueur, 100)
+    val partie = Partie(1,nouveauJoueur, route1)
+
+    return partie
+}
 
 
 
@@ -57,15 +69,17 @@ fun main() {
     route1.zoneSuivante = route2
     route2.zonePrecedente = route1
 
-    var listeMonstres = mutableListOf<IndividuMonstre>()
-    val monstre1 = IndividuMonstre(1, "springleaf",especeSpringleaf,null,1500.0)
-    listeMonstres.add(monstre1)
-    val monstre2 = IndividuMonstre(2, "flamkip", especeFlamkip,null,1500.0)
-    listeMonstres.add(monstre2)
-    val monstre3 = IndividuMonstre(3, "aquamy", especeAquamy,null,1500.0)
-    listeMonstres.add(monstre3)
 
-    val badge = Badge(1,"Badge Roche","Badge gagné lorsque le joueur atteint l'arène de pierre.")
+    val monstre1 = IndividuMonstre(1, "springleaf",especeSpringleaf,null,1500.0)
+    val monstre2 = IndividuMonstre(2, "flamkip", especeFlamkip,null,1500.0)
+    val monstre3 = IndividuMonstre(3, "aquamy", especeAquamy,null,1500.0)
+
+    joueur.sacAItems.add(objet1)
+
+
+    val partie = nouvellePartie()
+    partie.choixStarter()
+    partie.jouer()
 
 
 

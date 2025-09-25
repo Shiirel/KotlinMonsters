@@ -1,4 +1,6 @@
 package monde
+import jeu.CombatMonstre
+import joueur
 import monstre.EspeceMonstre
 import monstre.IndividuMonstre
 import kotlin.random.Random
@@ -26,8 +28,8 @@ class Zone (
     var zoneSuivante : Zone? = null,
     var zonePrecedente : Zone? = null
 ) {
-
-    fun genereMonstre(listeMonstres: MutableList<IndividuMonstre>) : IndividuMonstre {
+    var listeMonstres : MutableList<IndividuMonstre> = mutableListOf()
+    fun genereMonstre() : IndividuMonstre {
 
         var idMonstreGenere = 0
         var valeur : Int
@@ -54,11 +56,20 @@ class Zone (
             null,
             Random.nextDouble(expZone*0.8,expZone*1.2)
     )
-
+        listeMonstres.add(monstreGenere)
         return monstreGenere
     }
 
     fun rencontreMonstre() {
+        genereMonstre()
+        val monstreSauvage = genereMonstre()
+        for (monstre in joueur.equipeMonstre) {
+            if(monstre.pv>0){
+                val premierMonstre = monstre
+                val combat = CombatMonstre(premierMonstre,monstreSauvage)
+                combat.lancerCombat()
+            }
+        }
 
     }
 }
