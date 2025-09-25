@@ -57,9 +57,13 @@ fun main() {
     route1.zoneSuivante = route2
     route2.zonePrecedente = route1
 
+    var listeMonstres = mutableListOf<IndividuMonstre>()
     val monstre1 = IndividuMonstre(1, "springleaf",especeSpringleaf,null,1500.0)
+    listeMonstres.add(monstre1)
     val monstre2 = IndividuMonstre(2, "flamkip", especeFlamkip,null,1500.0)
+    listeMonstres.add(monstre2)
     val monstre3 = IndividuMonstre(3, "aquamy", especeAquamy,null,1500.0)
+    listeMonstres.add(monstre3)
 
     val badge = Badge(1,"Badge Roche","Badge gagné lorsque le joueur atteint l'arène de pierre.")
 

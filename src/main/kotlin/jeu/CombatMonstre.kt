@@ -2,6 +2,7 @@ package jeu
 
 import item.Utilisable
 import joueur
+import monstre.EspeceMonstre
 import monstre.IndividuMonstre
 
 
@@ -81,8 +82,6 @@ class CombatMonstre (
                     val captureReussi = objetChoisi.utiliser(monstreSauvage)
                     if (captureReussi == true) {
                         return false
-                    } else {
-                        //TODO
                     }
                 } else {
                     println("Objet non utilisable")
@@ -106,6 +105,57 @@ class CombatMonstre (
                 }
             }
         }
+        return true
+    }
+
+    fun afficheCombat() {
+        println("=============Début Round : $round=============")
+        println("Niveau : ${monstreSauvage.niveau}")
+        println("PV : ${monstreSauvage.pv/monstreSauvage.pvMax}")
+        println("${monstreSauvage.espece.afficheArt()}")
+        println("${monstreSauvage.espece.afficheArt(false)}")
+        println("Niveau : ${monstreJoueur.niveau}")
+        println("PV : ${monstreJoueur.pv/monstreJoueur.pvMax}")
+    }
+
+
+    fun jouer() {
+        var joueurPlusRapide = monstreJoueur.vitesse >= monstreSauvage.vitesse
+        afficheCombat()
+        if(joueurPlusRapide) {
+            var continuer = actionJoueur()
+            if(continuer == true) {
+                actionAdversaire()
+            }
+        } else {
+            actionAdversaire()
+            if(gameOver() == false){
+                var continuer = false
+            }
+        }
+    }
+
+
+    /**
+     * Lance le combat et gère les rounds jusqu'à la victoire ou la défaite.
+     *
+     * Affiche un message de fin si le joueur perd et restaure les PV
+     * de tous ses monstres.
+     */
+
+    fun lancerCombat() {
+        fun lanceCombat() {
+            while (!gameOver() && !joueurGagne()) {
+                this.jouer()
+                println("======== Fin du Round : $round ========")
+                round++
+            }
+            if (gameOver()) {
+                joueur.equipeMonstre.forEach { it.pv = it.pvMax }
+                println("Game Over !")
+            }
+        }
+
     }
 
 

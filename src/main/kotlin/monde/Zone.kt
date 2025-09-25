@@ -1,5 +1,7 @@
 package monde
 import monstre.EspeceMonstre
+import monstre.IndividuMonstre
+import kotlin.random.Random
 
 /**
  * Représente un lieu où le joueur peut se déplacer et rencontrer des monstres.
@@ -23,7 +25,40 @@ class Zone (
     val especeMonstres : MutableList<EspeceMonstre> = mutableListOf(),
     var zoneSuivante : Zone? = null,
     var zonePrecedente : Zone? = null
+) {
 
-    //TODO genereMonstre
-    //TODO rencontreMonstre
-) {}
+    fun genereMonstre(listeMonstres: MutableList<IndividuMonstre>) : IndividuMonstre {
+
+        var idMonstreGenere = 0
+        var valeur : Int
+        var unique : Boolean
+        do {
+            valeur = Random.nextInt(10,101)
+            unique = true
+            for (monstre in listeMonstres) {
+                if (monstre.id == valeur) {
+                    unique = false
+                    break
+                }
+            }
+            if(unique) {
+                idMonstreGenere = valeur
+            }
+        } while(!unique)
+
+
+    val monstreGenere = IndividuMonstre(
+            idMonstreGenere,
+            "???",
+            especeMonstres.random(),
+            null,
+            Random.nextDouble(expZone*0.8,expZone*1.2)
+    )
+
+        return monstreGenere
+    }
+
+    fun rencontreMonstre() {
+
+    }
+}
