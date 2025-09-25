@@ -22,7 +22,7 @@ class Partie (
         m2.afficheDetail()
         m3.afficheDetail()
 
-        println("Choisir un monstre (1 -> springleaf, 2 -> flamkip, ou  -> aquamy) : ")
+        println("Choisir un monstre (1 -> springleaf, 2 -> flamkip, ou 3 -> aquamy) : ")
         val choix = readln()
         var starter = m1
         if (choix == "1") {
@@ -93,21 +93,37 @@ class Partie (
         println("4 => Aller à la zone précédente")
 
         when (readln()) {
-            "1" -> zone.rencontreMonstre()
-            "2" -> examineEquipe()
+            "1" -> {
+                zone.rencontreMonstre()
+                jouer()
+            }
+            "2" -> {
+                examineEquipe()
+                jouer()
+            }
             "3" -> {
                 if (zone.zoneSuivante != null) {
-                    zone = zone.zoneSuivante!! // on change la zone actuelle
-                    jouer()                   // on relance le menu
-                } else println("Pas de zone suivante.")
+                    zone = zone.zoneSuivante!!
+                    jouer()
+                } else {
+                    println("Pas de zone suivante.")
+                    jouer()
+                }
             }
             "4" -> {
                 if (zone.zonePrecedente != null) {
-                    zone = zone.zonePrecedente!! // on change la zone actuelle
+                    zone = zone.zonePrecedente!!
                     jouer()
-                } else println("Pas de zone précédente.")
+                } else {
+                    println("Pas de zone précédente.")
+                    jouer()
+                }
             }
-            else -> println("Choix invalide.")
+            else -> {
+                println("Choix invalide.")
+                jouer()
+            }
         }
     }
+
 }
