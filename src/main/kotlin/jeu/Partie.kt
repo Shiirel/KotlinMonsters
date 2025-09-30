@@ -42,40 +42,42 @@ class Partie (
 
 
     fun modifierOrdreEquipe() {
-        if (joueur.equipeMonstre.size < 2) {
+        if (joueur.equipeMonstre.size>=2) {
+            println("Équipe :")
+                for (i in 0..joueur.equipeMonstre.lastIndex) {
+                println("$i : ${joueur.equipeMonstre[i].nom}")
+            }
+
+            println("Saisir la position du premier monstre :")
+                val position1 = readln().toInt()
+
+            println("Saisir la position du second monstre :")
+                val position2 = readln().toInt()
+
+                val temp = joueur.equipeMonstre[position1]
+                joueur.equipeMonstre[position1] = joueur.equipeMonstre[position2]
+                joueur . equipeMonstre [position2] = temp
+        } else {
             println("Erreur : il n'y a pas assez de monstres dans l'équipe.")
         }
-
-        println("Équipe :")
-        for (i in joueur.equipeMonstre.indices) {
-            println("$i : ${joueur.equipeMonstre[i].nom}")
-        }
-
-        println("Saisir la position du premier monstre :")
-        val position1 = readln().toInt()
-        println("Saisir la position du second monstre :")
-        val position2 = readln().toInt()
-
-        val valeur = joueur.equipeMonstre[position1]
-        joueur.equipeMonstre[position1] = joueur.equipeMonstre[position2]
-        joueur.equipeMonstre[position2] = valeur
     }
 
 
 
     fun examineEquipe() {
         println("Équipe :")
-        for (i in joueur.equipeMonstre.indices) {
+        for (i in 0..joueur.equipeMonstre.lastIndex) {
             println("$i : ${joueur.equipeMonstre[i].nom}")
         }
         println("Saisir la position du monstre pour voir les détails, 'q' pour quitter, 'm' pour modifier l'ordre")
         val position = readln().lowercase()
-        val pos = position.toInt()
         if(position!="q" && position!="m") {
-            position.toInt()
+            var pos = position.toInt()
             joueur.equipeMonstre[pos].afficheDetail()
         } else if(position=="m") {
             modifierOrdreEquipe()
+        } else if (position == "q") {
+            print("test")
         }
     }
 

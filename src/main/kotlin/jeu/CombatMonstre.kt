@@ -124,7 +124,7 @@ class CombatMonstre (
         afficheCombat()
         if(joueurPlusRapide) {
             var continuer = actionJoueur()
-            if(continuer == true) {
+            if(continuer) {
                 actionAdversaire()
             }
         } else {
