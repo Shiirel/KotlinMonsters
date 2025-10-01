@@ -97,6 +97,7 @@ class IndividuMonstre (
             pvMax += round(pvMax * potentiel).toInt() + Random.nextInt(-5, 6)
             pv += pvMax - ancienPvMax
         }
+    }
 
 
         /**
@@ -109,7 +110,7 @@ class IndividuMonstre (
          */
         fun attaquer(cible: IndividuMonstre) {
             val degaBrut = this.attaque
-            var degatTotal = degaBrut - (this.defense / 2)
+            var degatTotal = degaBrut - (cible.defense / 2)
             if (degatTotal < 1) {
                 degatTotal = 1
             }
@@ -117,7 +118,7 @@ class IndividuMonstre (
             cible.pv -= degatTotal
 
             val pvApres = cible.pv
-            print("$nom inflige ${pvAvant - pvApres} dégâts à ${cible.nom}")
+            println("$nom inflige ${pvAvant - pvApres} dégâts à ${cible.nom}")
         }
 
         /**
@@ -163,5 +164,4 @@ class IndividuMonstre (
             this.espece = espece.palierEvolution!!.evolution
             println("Le monstre a évolué en ${this.espece}")
         }
-    }
 }

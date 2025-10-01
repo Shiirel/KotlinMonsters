@@ -65,14 +65,22 @@ class Zone (
 
     fun rencontreMonstre() {
         val monstreSauvage = genereMonstre()
+        var monstreJoueurActif: IndividuMonstre? = null
         for (monstre in joueur.equipeMonstre) {
             if (monstre.pv > 0) {
-                val premierMonstre = monstre
-                val combat = CombatMonstre(premierMonstre, monstreSauvage)
-                combat.lancerCombat()
+                monstreJoueurActif = monstre
+                break
             }
         }
+
+        if (monstreJoueurActif != null) {
+            val combat = CombatMonstre(monstreJoueurActif, monstreSauvage)
+            combat.lancerCombat()
+        } else {
+            println("Aucun monstre disponible pour combattre !")
+        }
     }
+
 }
 
 /*

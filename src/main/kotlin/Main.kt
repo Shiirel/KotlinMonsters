@@ -5,6 +5,7 @@ import jeu.Partie
 import monde.Zone
 import monstre.EspeceMonstre
 import monstre.IndividuMonstre
+import jeu.*
 
 //Déclarations d'objets et de variables
 public var joueur = Entraineur(1, "Sacha", 100)
@@ -56,11 +57,11 @@ fun changeCouleur(message: String, couleur:String=""): String {
 fun nouvellePartie(): Partie {
     println("Quel est ton nom ?")
     val nomJoueur = readln()
-    val nouveauJoueur = Entraineur(1, nomJoueur, 100)
-    val partie = Partie(1,nouveauJoueur, route1)
-
+    joueur.nom = nomJoueur
+    val partie = Partie(1, joueur, route1)
     return partie
 }
+
 
 
 
@@ -70,16 +71,23 @@ fun main() {
     route2.zonePrecedente = route1
 
 
-    val monstre1 = IndividuMonstre(1, "springleaf",especeSpringleaf,null,1500.0)
-    val monstre2 = IndividuMonstre(2, "flamkip", especeFlamkip,null,1500.0)
-    val monstre3 = IndividuMonstre(3, "aquamy", especeAquamy,null,1500.0)
+    val monstre1 = IndividuMonstre(1, "springleaf", especeSpringleaf, null, 1500.0)
+    val monstre2 = IndividuMonstre(2, "flamkip", especeFlamkip, null, 1500.0)
+    val monstre3 = IndividuMonstre(3, "aquamy", especeAquamy, null, 1500.0)
 
     joueur.sacAItems.add(objet1)
 
 
     val partie = nouvellePartie()
     partie.choixStarter()
+    println("Équipe du joueur : ${joueur.equipeMonstre.map { it.nom }}")
+    for (monstre in joueur.equipeMonstre) {
+        println("${monstre.nom} a ${monstre.pv} PV")
+    }
+
     partie.jouer()
+}
+
 
 
 
@@ -95,8 +103,4 @@ fun main() {
     monstre1.afficheDetail()
     objet1.utiliser(monstre1)
     */
-
-
-
-}
 

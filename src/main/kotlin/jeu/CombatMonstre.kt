@@ -2,7 +2,7 @@ package jeu
 
 import item.Utilisable
 import joueur
-import monstre.EspeceMonstre
+import monstre.*
 import monstre.IndividuMonstre
 
 
@@ -120,20 +120,96 @@ class CombatMonstre (
 
 
     fun jouer() {
+        println("============= Round : $round =============")
+        println("${monstreJoueur.nom} (PV : ${monstreJoueur.pv}/${monstreJoueur.pvMax}) VS ${monstreSauvage.nom} (PV : ${monstreSauvage.pv}/${monstreSauvage.pvMax})")
+
         var joueurPlusRapide = monstreJoueur.vitesse >= monstreSauvage.vitesse
-        afficheCombat()
-        if(joueurPlusRapide) {
-            var continuer = actionJoueur()
-            if(continuer) {
-                actionAdversaire()
+
+        if (joueurPlusRapide) {
+            var continuer = true
+            while (continuer) {
+                println("Menu : 1 -> Attaquer, 2 -> Utiliser un objet, 3 -> Changer de monstre")
+                val choixAction = readln()
+
+                if (choixAction == "1") {
+                    monstreJoueur.attaquer(monstreSauvage)
+                    continuer = false
+                } else if (choixAction == "2") {
+                    println("Sac :")
+                    for (i in 0..joueur.sacAItems.lastIndex) {
+                        println("$i : ${joueur.sacAItems[i].nom}")
+                    }
+                    println("Saisir l'index de l'objet : ")
+                    val indexChoix = readln().toInt()
+                    val objetChoisi = joueur.sacAItems[indexChoix]
+                    if (objetChoisi is Utilisable) {
+                        val captureReussi = objetChoisi.utiliser(monstreSauvage)
+                        if (captureReussi) {
+                            monstreSauvage.pv = 0
+                            continuer = false
+                        } else {
+                            println("L'objet n'a pas fonctionné.")
+                            continuer = false
+                        }
+                    } else {
+                        println("Objet non utilisable")
+                        continuer = false
+                    }
+                } else if (choixAction == "3") {
+                    println("Changer de monstre non implémenté pour l'instant")
+                    continuer = false
+                } else {
+                    println("Choix invalide.")
+                }
+            }
+            if (monstreSauvage.pv > 0) {
+                monstreSauvage.attaquer(monstreJoueur)
             }
         } else {
-            actionAdversaire()
-            if(gameOver() == false){
-                var continuer = false
+            monstreSauvage.attaquer(monstreJoueur)
+            if (monstreJoueur.pv > 0) {
+                var continuer = true
+                while (continuer) {
+                    println("Menu : 1 -> Attaquer, 2 -> Utiliser un objet, 3 -> Changer de monstre")
+                    val choixAction = readln()
+
+                    if (choixAction == "1") {
+                        monstreJoueur.attaquer(monstreSauvage)
+                        continuer = false
+                    } else if (choixAction == "2") {
+                        println("Sac :")
+                        for (i in 0..joueur.sacAItems.lastIndex) {
+                            println("$i : ${joueur.sacAItems[i].nom}")
+                        }
+                        println("Saisir l'index de l'objet : ")
+                        val indexChoix = readln().toInt()
+                        val objetChoisi = joueur.sacAItems[indexChoix]
+                        if (objetChoisi is Utilisable) {
+                            val captureReussi = objetChoisi.utiliser(monstreSauvage)
+                            if (captureReussi) {
+                                monstreSauvage.pv = 0
+                                continuer = false
+                            } else {
+                                println("L'objet n'a pas fonctionné.")
+                                continuer = false
+                            }
+                        } else {
+                            println("Objet non utilisable")
+                            continuer = false
+                        }
+                    } else if (choixAction == "3") {
+                        println("Changer de monstre non implémenté pour l'instant")
+                        continuer = false
+                    } else {
+                        println("Choix invalide.")
+                    }
+                }
             }
         }
+
+        round++
     }
+
 
 
     /**
@@ -155,7 +231,7 @@ class CombatMonstre (
                 println("Game Over !")
             }
         }
-
+        lanceCombat()
     }
 
 
