@@ -50,17 +50,29 @@ class Entraineur(
      * @return le monstre choisi
      */
 
-    fun choisirMonstre() {
-        var compt = 0
+    fun choisirMonstre() : IndividuMonstre? {
         var monstresVivants = mutableListOf<IndividuMonstre>()
+        var choixMonstre: IndividuMonstre? = null
+        var choixIndex : Int
         for (monstre in equipeMonstre) {
-            if(monstre.pv>0) {
-                compt += 1
+            if (monstre.pv > 0) {
                 monstresVivants.add(monstre)
             }
-            if(compt>1) {
-
+            if (monstresVivants.size >= 1) {
+                println("Choisir un monstre de l'équipe : ")
+                for (i in 0..equipeMonstre.lastIndex) {
+                    println("$i : ${equipeMonstre[i].nom}")
+                }
+                do {
+                    choixIndex = readln().toInt()
+                } while (choixIndex in 0..equipeMonstre.lastIndex)
+                choixMonstre = monstresVivants[choixIndex]
+            } else if (monstresVivants.size == 1) {
+                choixMonstre = monstresVivants[0]
+            } else {
+                println("Aucun monstre vivant dans l'équipe !")
             }
         }
+        return choixMonstre
     }
 }

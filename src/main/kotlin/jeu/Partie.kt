@@ -4,6 +4,7 @@ import dresseur.Entraineur
 import especeAquamy
 import especeFlamkip
 import especeSpringleaf
+import monde.Ville
 import monde.Zone
 import monstre.EspeceMonstre
 import monstre.IndividuMonstre
@@ -93,6 +94,8 @@ class Partie (
         println("2 => Examiner l'équipe de monstres")
         println("3 => Aller à la zone suivante")
         println("4 => Aller à la zone précédente")
+        println("5 => Soigner votre équipe")
+        println("6 => ...")
 
         when (readln()) {
             "1" -> {
@@ -120,6 +123,15 @@ class Partie (
                     println("Pas de zone précédente.")
                     jouer()
                 }
+            }
+            "5" -> {
+                if(zone is Ville) {
+                    joueur.soigneEquipe()
+                    println("L'hôpital soigne votre équipe.")
+                } else {
+                    println("Déplacez vous dans une ville pour soigner l'équipe.")
+                }
+                jouer()
             }
             else -> {
                 println("Choix invalide.")
