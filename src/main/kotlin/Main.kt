@@ -6,6 +6,8 @@ import monde.Zone
 import monstre.EspeceMonstre
 import monstre.IndividuMonstre
 import jeu.*
+import monde.Ville
+import monstre.PalierEvolution
 
 //Déclarations d'objets et de variables
 public var joueur = Entraineur(1, "Sacha", 100)
@@ -16,15 +18,19 @@ var especeAquamy = EspeceMonstre(7,"aquamy","meteo",55,10,11,9,14,14,27.0,9.0,10
 var especeLaoumi = EspeceMonstre(8,"laoumi","animal",58,11,10,9,8,11,23.0,11.0,8.0,7.0,6.0,11.5,"Petit ourson au pelage soyeux, aime se tenir debout.","Son grognement est mignon mais il protège ses amis.","Affectueux, protecteur, gourmand")
 var especeBugsyface = EspeceMonstre(10,"bugsyface","insecte",45,10,13,8,7,13,21.0,7.0,11.0,6.5,8.0,11.5,"Insecte à carapace luisante, se déplace par bonds et vibre des antennes.","Sa carapace devient plus dure après chaque mue.","Travailleur, sociable, infatigable")
 var especeGalum = EspeceMonstre(13,"galum","minéral",55,12,15,6,8,12,13.0,9.0,13.0,4.0,6.5,10.5,"Golem ancien de pierre, yeux lumineux en garde.","Peut rester immobile des heures comme une statue.","Sérieux, stoïque, fiable")
+val especePyrokip = EspeceMonstre(id = 5, nom = "pyrokip", type = "Animal", baseAttaque = 18, baseDefense = 12, baseVitesse = 15, baseAttaqueSpe = 22, baseDefenseSpe = 11, basePv = 70, modAttaque = 12.0, modDefense = 8.0, modVitesse = 11.0, modAttaqueSpe = 12.5, modDefenseSpe = 8.0, modPv = 15.0, description = "Pyrokip, l’évolution de Flamkip. Son feu est devenu intense et ses flammes sont capables de fondre la pierre. Fier et courageux, il protège son dresseur à tout prix.", particularites = "Ses flammes changent de couleur selon son humeur : rouge vif en colère, dorées quand il est calme.", caractères = "Fier, protecteur, explosif.")//, elements = mutableListOf(feu))
+
 
 
 var route1 = Zone(1,"bramblewood",20,mutableListOf(especeSpringleaf,especeBugsyface))
 var route2 = Zone(2,"moonwood",45,mutableListOf(especeGalum))
+var racailleCity = Ville(3,"RacailleCity",30,mutableListOf(especeFlamkip))
+
 
 var objet1 = MonsterKube(1,"cube","description",280.0)
 val badge = Badge(1,"Badge Roche","Badge gagné lorsque le joueur atteint l'arène de pierre.")
 
-
+var palierEvolutionFlamkip = PalierEvolution(1,7,especePyrokip)
 
 //Fonctions et méthodes
 
@@ -69,11 +75,16 @@ fun nouvellePartie(): Partie {
 fun main() {
     route1.zoneSuivante = route2
     route2.zonePrecedente = route1
+    route2.zoneSuivante = racailleCity
+    racailleCity.zonePrecedente = route2
+
 
 
     val monstre1 = IndividuMonstre(1, "springleaf", especeSpringleaf, null, 1500.0)
     val monstre2 = IndividuMonstre(2, "flamkip", especeFlamkip, null, 1500.0)
     val monstre3 = IndividuMonstre(3, "aquamy", especeAquamy, null, 1500.0)
+
+    especeFlamkip.palierEvolution=palierEvolutionFlamkip
 
     joueur.sacAItems.add(objet1)
 

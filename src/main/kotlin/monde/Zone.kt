@@ -20,7 +20,7 @@ import kotlin.random.Random
 
  */
 
-class Zone (
+open class Zone (
     var id : Int,
     var nom : String,
     var expZone : Int,
@@ -82,25 +82,3 @@ class Zone (
     }
 
 }
-
-/*
-fun genereMonstre(): IndividuMonstre {
-    val especeMonstreGenere = especeMonstres.random()
-    expZone += if (Random.nextBoolean()) 20 else -20
-    var monstreGenere = IndividuMonstre(4000, "SauvageTest", especeMonstreGenere, null, expZone.toDouble())
-    return monstreGenere
-}
-
-fun rencontreMonstre() {
-    val monstreSauvage = genereMonstre()
-    var premierPokemon: IndividuMonstre? = null
-    joueur.equipeMonstre.forEach() { monstre ->
-        if (monstre.pv > 0) {
-            premierPokemon = monstre
-        }
-    }
-    val combat = CombatMonstre(premierPokemon!!, monstreSauvage)
-    combat.lancerCombat()
-}
-}
-*/
